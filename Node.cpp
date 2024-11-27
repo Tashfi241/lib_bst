@@ -1,65 +1,63 @@
-#include <iostream>
-using namespace std;
+#include "Node.h"
 
-class Node{
-    private:
-    int data;
-    int weight;
-    Node* lchild;
-    Node* rchild;
 
-    public:
-    Node(int value) : data(value), weight(1), lchild(nullptr), rchild(nullptr) {}
-    
-    //prototypes
-    Node* insertR(int k);   // prototype for insert recursive
-    void inOrder();         // prototype for inorder traversal
-};
+Node:: Node(int value) : data(value), weight(1), lchild(nullptr), rchild(nullptr), parent(nullptr) {}
 
-// Function for inserting numbers inside a node
-Node* Node::insertR(int k){                     // Insert Recursive
-    if(k == data){
-        weight++;
-    }
-    if(k < data){
-        if(lchild == nullptr){
-            lchild = new Node(k);
-        } else{
-            lchild = lchild->insertR(k);
+bool Node::searchI(int k){
+    Node* node = this;
+    while(node != nullptr){
+        if(node->data == k){
+            return true;
         }
-    } else if(k > data){
-        if(rchild == nullptr){
-            rchild = new Node(k);
-        } else{
-            rchild = rchild->insertR(k);
+        if(node->data > k){
+            node = node->lchild;
+        } else if(node->data < k){
+            node = node->rchild;
         }
     }
-    return this;
+    return false;
 }
 
-// Function for printing the numbers of bst
-void Node::inOrder(){                             // Inorder Traversal
-    if(lchild != nullptr){
-        lchild->inOrder();
+bool Node::searchR(int k){
+    Node* node = this;
+    if(node == NULL){
+        return false;
     }
-    cout << data << " ";
-    if(rchild != nullptr){
-        rchild->inOrder();
+    if(node->data == k){
+        return true;
+    }
+    if(node->data > k){
+        return node->lchild ? node->lchild->searchR(k) : false;
+    } else{
+        return node->rchild ? node->rchild->searchR(k) : false;
     }
 }
 
-int main(){
+Node* Node::insertI(int k){
+    Node* newvalue = new Node(k);
+    Node* current = this;
+    Node* parent = nullptr;
     
-    Node* r = new Node(49);
-    r->insertR(48);
-    r->insertR(50);
-    r->insertR(55);
-    r->insertR(52);
-    r->insertR(34);
-    r->insertR(40);
-    
-    cout << "THE NUMBERS OF BST BY INORDER TRAVERSAL: ";
-    r->inOrder();
-    cout << endl;
-    return 0;
+    if(current == NULL){
+        return newvalue;
+    }
+    if(current->data == k){
+        current->weight++;
+        return current;
+    }
+    while(current != nullptr){
+        parent = current;
+        if(current->data > k){
+            current = current->lchild;
+        } else if(current->data < k){
+            current = current->rchild;
+        }
+    }
+    newvalue->parent = parent;
+    if(parent->data > k){
+        parent->lchild = newvalue;
+    } else if(parent->data < k){
+        parent->rchild = newvalue;
+    }
+    return current;
 }
