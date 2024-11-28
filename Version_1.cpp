@@ -18,7 +18,7 @@ class Node{
     void inOrder();                 // Inorder Traversal
 };
 
-Node* Node:: insertR(int k){                    // Function Insert Recursive
+Node* Node:: insertR(int k){                                        // Function Insert Recursive
     if(data == k){
         this->weight++;
         return this;
@@ -39,7 +39,7 @@ Node* Node:: insertR(int k){                    // Function Insert Recursive
     return this;
 }
 
-void Node::inOrder(){                            // Function Inorder Traversal
+void Node::inOrder(){                                                // Function Inorder Traversal
     if(lchild != nullptr){
         lchild->inOrder();
     }
@@ -48,6 +48,7 @@ void Node::inOrder(){                            // Function Inorder Traversal
         rchild->inOrder();
     }
 }
+
 int main(){
     Node* r = new Node(49);
     r->insertR(44);
