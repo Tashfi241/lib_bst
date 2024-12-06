@@ -1,5 +1,5 @@
 #include "Node.h"
-
+#include "Node.cpp"
 
 Node:: Node(int value) : data(value), weight(1), lchild(nullptr), rchild(nullptr), parent(nullptr) {}
 
