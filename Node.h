@@ -16,9 +16,13 @@ class Node{
         Node(int value);
     
     //Prototypes
-    bool searchI(int k);                         // Search Iterative
-    bool searchR(int k);                         // Search Recursive
-    Node* insertI(int k);                        // Insert Iterative
+    bool searchI(int k);                                                                        // ricerca iterativa di k
+    bool searchR(int k);                                                                        // ricerca ricorsiva di k
+    Node* insertI(int k);                                                                      // inserimento iterativa di k
+    void preOrder();                                                                           // attraversamento in preOrder
+    void postOrder();                                                                          // attraversamento in postOrder
+    Node* deleteNode(int k);                                                                   // cancellazione del nodo k
+    bool isBst(int minvalue = INT_MIN, int maxvalue = INT_MAX);                                // verifica che sia un bst o meno
 };
 
 
